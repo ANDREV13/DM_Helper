@@ -68,16 +68,20 @@ class MainProject(QWidget):
 
         self.show()
 
-    def run(self, z = 0, t = 0):
-        self.t1[self.this_label] = 0
+    def run(self, z = 0, t = 0, a = '1'):
+        if a == '1':
+            writing = self.sender().text()
+            self.t1[self.this_label] = 0
+        else:
+            writing = a
         for i in self.disp:
             i.setText('')
-        if isinstance(self.strs[self.sender().text()], list):
-            self.string = self.strs[self.sender().text()][t]
-            self.this_label_name = self.sender().text()
+        if isinstance(self.strs[writing], list):
+            self.string = self.strs[writing][t]
+            self.this_label_name = writing
         else:
-            self.string = self.strs[self.sender().text()]
-            self.this_label_name = self.sender().text()
+            self.string = self.strs[writing]
+            self.this_label_name = writing
         self.str1 = ''
         self.count = 0
         self.this_label = z
@@ -85,7 +89,6 @@ class MainProject(QWidget):
             self.str1 += i
             if len(self.str1) > 45:
                 self.count += 1
-
                 self.str1 = ''
             self.disp[self.count].setText(self.str1)
 
@@ -142,19 +145,19 @@ class MainProject(QWidget):
 
     def lab_forw(self):
         if isinstance(self.strs[self.this_label_name], list):
-            if self.t1[self.this_label] < len(self.strs[self.this_label_name]):
+            if self.t1[self.this_label] < len(self.strs[self.this_label_name])-1:
                 self.t1[self.this_label] += 1
-                self.run(self.this_label, self.t1[self.this_label])
+                self.run(self.this_label, self.t1[self.this_label], self.this_label_name)
 
     def lab_bk(self):
-        if isinstance(self.strs[self.sender().text()], list):
+        if isinstance(self.strs[self.this_label_name], list):
             if self.t1[self.this_label] > 0:
                 self.t1[self.this_label] -= 1
-                self.run(self.this_label, self.t1[self.this_label])
-
+                self.run(self.this_label, self.t1[self.this_label], self.this_label_name)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = MainProject({'11': '11', 'aaa': ['aaaaaaaaaaaaaaa', 'oooo'], 'aswss': 111, 'ac': '','ab':'a','acc':'','aas':'a','a':''})
+    ex = MainProject({'test1': 'test'*50, 'test2': ['test'*55, 'test'*100], 'test3': 'test'*200, 'test4': ['test',
+                      'test'*2, 'test'*3, 'test'*4], 'test5': 'test', 'test6': '--', 'test7': 'test'})
     sys.exit(app.exec_())
