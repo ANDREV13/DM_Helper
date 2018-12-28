@@ -114,33 +114,25 @@ class MainProject(QWidget):
     def but_forw(self):
         if self.t < self.lenn-1:
             self.t += 1
-            for i in self.strss[self.t-1]:
-                self.buttons[0].deleteLater()
-                self.buttons.pop(0)
             q = 0
             for i in self.strss[self.t]:
-                a = QPushButton(self)
-                a.resize(170, 100)
-                a.move(0, 0 + (q * 100))
-                a.setText(str(i))
-                a.clicked.connect(self.run)
-                self.buttons.append(a)
+                self.buttons[q].show()
+                self.buttons[q].setText(str(i))
+                q += 1
+            for i in range(q, len(self.buttons)):
+                self.buttons[q].hide()
                 q += 1
 
     def but_bk(self):
         if self.t > 0:
             self.t -= 1
-            for i in self.strss[self.t+1]:
-                self.buttons[0].deleteLater()
-                self.buttons.pop(0)
             q = 0
             for i in self.strss[self.t]:
-                a = QPushButton(self)
-                a.resize(170, 100)
-                a.move(0, 0 + (q * 100))
-                a.setText(str(i))
-                a.clicked.connect(self.run)
-                self.buttons.append(a)
+                self.buttons[q].show()
+                self.buttons[q].setText(str(i))
+                q += 1
+            for i in range(q, len(self.buttons)):
+                self.buttons[q].hide()
                 q += 1
 
     def lab_forw(self):
